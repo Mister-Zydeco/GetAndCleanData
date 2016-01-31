@@ -12,7 +12,7 @@ To run it, first obtain the [zip file for this dataset](https://d396qusza40orc.c
 This script was run with R version 3.2.2 ("Fire Safety"). Any version of R later than that should also work.
 
 ## Processing
-All filen and directory ames below are paths relative to the top-level directory `UCI HAR Dataset`.
+All file and directory names below are paths relative to the top-level directory `UCI HAR Dataset`.
 
 We make a data frame from the files in the `test` subdirectory by cbinding the  human subject ids from `test/subject_test.txt`, the activity names obtained from using the activity ids in `test/y_test.txt` as indices into an array containing our activity names, and a third set of columns.
 
@@ -28,5 +28,5 @@ We now have our column names for the feature data and we can extract the feature
 
 We perform the same processing on the data in the `train` subdirectory (where the filenames have `train` instead of `test`). We thus have data frames for two dijoint sets of observations which we may rbind into a merged data set.
 
-We form our data set by finding the unique pairs of subject ids and activity names in our merged data set. For each unique pair, we use R's boolean row selector device to find the indices of matching rows and perform an lapply of the `mean` function for all data columns (index 3 and greater) in our merged data set. This is the desired data frame, which we write out as a space-delimited file called `averages_all_vars_by_subject_actvity.txt`.
+We form our data set by finding the unique pairs of subject ids and activity names in our merged data set. For each unique pair, we use R's boolean row selector device to find the indices of matching rows and perform an lapply of the `mean` function for all data columns (index 3 and greater) in our merged data set, restricted to the matching rows. Together with their subject ids and activitiy names, these column averages form the desried data frame. As requested, we write it to a space-delimited text file via a call to `write.table` with rowNames= FALSE. The output file is called `averages_all_vars_by_subject_actvity.txt`.
 
